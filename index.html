@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nash Lim Portfolio</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+
+<!-- BG CANVAS -->
+<div class="bg-canvas">
+<svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="blur1"><feGaussianBlur stdDeviation="60"/></filter>
+    <filter id="blur2"><feGaussianBlur stdDeviation="80"/></filter>
+  </defs>
+  <rect width="1440" height="900" fill="#EDE4D0"/>
+  <g class="blob1" filter="url(#blur1)"><ellipse cx="220" cy="180" rx="220" ry="160" fill="#C4882A" opacity="0.18"/></g>
+  <g class="blob2" filter="url(#blur2)"><ellipse cx="1100" cy="320" rx="280" ry="200" fill="#D4A050" opacity="0.14"/></g>
+  <g class="blob3" filter="url(#blur1)"><ellipse cx="650" cy="700" rx="260" ry="180" fill="#A0682A" opacity="0.12"/></g>
+  <g filter="url(#blur2)"><ellipse cx="1300" cy="750" rx="200" ry="160" fill="#E8B870" opacity="0.10"/></g>
+  <g filter="url(#blur1)"><ellipse cx="100" cy="700" rx="170" ry="140" fill="#B87A30" opacity="0.11"/></g>
+  <g opacity="0.04" stroke="#8B5E30" stroke-width="0.5">
+    <line x1="0" y1="150" x2="1440" y2="150"/><line x1="0" y1="400" x2="1440" y2="400"/><line x1="0" y1="650" x2="1440" y2="650"/>
+    <line x1="200" y1="0" x2="200" y2="900"/><line x1="720" y1="0" x2="720" y2="900"/><line x1="1240" y1="0" x2="1240" y2="900"/>
+  </g>
+</svg>
+</div>
+
+
+<nav>
+  <a class="nav-logo" href="#hero">Nash Lim</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Work</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="site">
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <p class="hero-eyebrow">Data Scientist &amp; ML Engineer · Sarawak, Malaysia</p>
+  <h1>
+    <span class="hero-line"><span>Turning messy</span></span>
+    <span class="hero-line"><span>data into things</span></span>
+    <span class="hero-line"><span>that actually work.</span></span>
+  </h1>
+  <p class="hero-sub">Python by day, overthinking SQL queries by night. I build ML models and pipelines that run in production — not just in a notebook that you'll never open again.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Let's work together →</a>
+    <a href="#projects" class="btn-ghost">See my work</a>
+  </div>
+
+  <!-- AI QUOTE WIDGET -->
+  <div class="quote-trigger-wrap">
+    <p class="quote-trigger-label">Random quote to inspire your day</p>
+    <button class="quote-btn" id="quoteBtn" onclick="generateQuote()">
+      <span class="quote-icon" id="quoteIcon">✦</span>
+      Generate a quote for today
+    </button>
+    <div class="quote-box" id="quoteBox">
+      <div class="quote-person">
+        <img class="quote-portrait" id="quotePortrait" alt="Person portrait">
+        <div>
+          <p class="quote-attr" id="quoteAttr"></p>
+          <p class="quote-birthday" id="quoteBirthday"></p>
+        </div>
+      </div>
+      <p class="quote-text" id="quoteText"></p>
+      <p class="quote-context" id="quoteContext"></p>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">LightGBM <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Python <span class="marquee-dot"></span></span>
+    <span class="marquee-item">XGBoost <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Feature Engineering <span class="marquee-dot"></span></span>
+    <span class="marquee-item">ETL Pipelines <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Apache Livy <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Streamlit <span class="marquee-dot"></span></span>
+    <span class="marquee-item">SQL <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Audience Segmentation <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Google Cloud <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Retention Modelling <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Data Visualization <span class="marquee-dot"></span></span>
+    <span class="marquee-item">LightGBM <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Python <span class="marquee-dot"></span></span>
+    <span class="marquee-item">XGBoost <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Feature Engineering <span class="marquee-dot"></span></span>
+    <span class="marquee-item">ETL Pipelines <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Apache Livy <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Streamlit <span class="marquee-dot"></span></span>
+    <span class="marquee-item">SQL <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Audience Segmentation <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Google Cloud <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<hr class="sep"/>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">About <em>me</em></h2>
+  </div>
+  <div class="about-layout">
+    <div class="about-body reveal-left">
+      <p>Hi, I'm Nash — a data scientist who genuinely enjoys staring at model outputs at odd hours and thinking "wait, why is this working?" I'm from Sarawak, Malaysia, currently at <strong>Tencent Malaysia</strong> keeping a fleet of production ML models alive and useful.</p>
+      <p>My career so far has involved a lot of telling spreadsheets to behave themselves, convincing pipelines to stop breaking at 2am, and occasionally impressing stakeholders with a chart that somehow told a coherent story. My proudest achievement? <strong>A ~15% lift</strong> in identifying high-value users. My most humbling? The number of times I've run a SQL query and gotten exactly zero rows back.</p>
+      <p>If you're looking for someone who takes the work seriously but not themselves — you've found the right person.</p>
+    </div>
+    <div class="stat-row reveal-right">
+      <div class="stat-box"><div class="stat-big">2+</div><div class="stat-desc">Years in production ML</div></div>
+      <div class="stat-box"><div class="stat-big">~15%</div><div class="stat-desc">Lift in high-value user ID</div></div>
+      <div class="stat-box"><div class="stat-big">~30%</div><div class="stat-desc">Reduced manual processing effort</div></div>
+      <div class="stat-box"><div class="stat-big">20+</div><div class="stat-desc">Production models maintained</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Skills &amp; <em>tools</em></h2>
+  </div>
+  <div class="skills-cats reveal">
+
+    <div>
+      <p class="skill-cat-label">Languages</p>
+      <div class="skill-icons-row">
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python logo"></div>
+          <span>Python</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="SQL database logo"></div>
+          <span>SQL</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript logo"></div>
+          <span>JavaScript</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="skill-cat-label">ML & Modelling</p>
+      <div class="skill-icons-row">
+        <div class="skill-icon-item">
+          <i class="fa-solid fa-cubes-stacked" style="color:#F7931E;font-size:22px"></i>
+          <span>XGBoost</span>
+        </div>
+        <div class="skill-icon-item">
+          <i class="fa-solid fa-seedling" style="color:#5a9a3c;font-size:22px"></i>
+          <span>LightGBM</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/scikitlearn/F7931E" alt="scikit-learn logo"></div>
+          <span>scikit-learn</span>
+        </div>
+        <div class="skill-icon-item">
+          <i class="fa-solid fa-chart-bar" style="color:#C47C2B;font-size:22px"></i>
+          <span>Feature Eng.</span>
+        </div>
+        <div class="skill-icon-item">
+          <i class="fa-solid fa-users" style="color:#8B6A40;font-size:22px"></i>
+          <span>Segmentation</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="skill-cat-label">Data & Infrastructure</p>
+      <div class="skill-icons-row">
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/pandas/150458" alt="Pandas logo"></div>
+          <span>Pandas</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/numpy/013243" alt="NumPy logo"></div>
+          <span>NumPy</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/apacheairflow/017CEE" alt="ETL tooling logo"></div>
+          <span>ETL</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/apache/CA2133" alt="Apache logo"></div>
+          <span>Apache Livy</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/apachehive/FDEE21" alt="Apache Hive logo"></div>
+          <span>Hive</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="skill-cat-label">Platforms & Tools</p>
+      <div class="skill-icons-row">
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/googlecloud/4285F4" alt="Google Cloud Platform logo"></div>
+          <span>GCP</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/streamlit/FF4B4B" alt="Streamlit logo"></div>
+          <span>Streamlit</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="#F34F29" d="M124.74 52.49L75.51 3.25c-1.6-1.61-3.77-2.51-6.03-2.51-2.27 0-4.43.9-6.04 2.51L52.6 14.18l14.87 14.87a7.1 7.1 0 0 1 7.8 1.71 7.1 7.1 0 0 1 1.7 7.87l14.33 14.33a7.09 7.09 0 0 1 7.87 1.7 7.1 7.1 0 0 1 0 10.06 7.1 7.1 0 0 1-10.06 0 7.11 7.11 0 0 1-1.56-7.6L73.3 42.88v33.64a7.1 7.1 0 0 1 1.88 11.38 7.1 7.1 0 0 1-10.06 0 7.1 7.1 0 0 1 0-10.06 7.07 7.07 0 0 1 2.32-1.53V42.34a7.07 7.07 0 0 1-2.32-1.53 7.1 7.1 0 0 1-1.56-7.66L49.2 18.33 3.26 64.27a8.53 8.53 0 0 0 0 12.07l49.22 49.22c1.6 1.6 3.77 2.51 6.03 2.51 2.27 0 4.43-.9 6.04-2.51l49.2-49.2a8.53 8.53 0 0 0-.01-12.87z"/></svg></div>
+          <span>Git</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/googlecolab/F9AB00" alt="Google Colab logo"></div>
+          <span>Colab</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="skill-cat-label">Analytics & Communication</p>
+      <div class="skill-icons-row">
+        <div class="skill-icon-item"><i class="fa-solid fa-chart-line" style="color:#C47C2B;font-size:22px"></i><span>Data Viz</span></div>
+        <div class="skill-icon-item"><i class="fa-solid fa-magnifying-glass-chart" style="color:#8B6A40;font-size:22px"></i><span>Retention</span></div>
+        <div class="skill-icon-item"><i class="fa-solid fa-comments" style="color:#6B4226;font-size:22px"></i><span>Stakeholders</span></div>
+        <div class="skill-icon-item"><i class="fa-solid fa-lightbulb" style="color:#E09A4A;font-size:22px"></i><span>Insights</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Work <em>experience</em></h2>
+  </div>
+  <div>
+    <div class="exp-entry reveal">
+      <div class="exp-when">Jul 2025 – Present</div>
+      <div>
+        <div class="exp-role">Data Analyst Specialist</div>
+        <div class="exp-co">Tencent Malaysia</div>
+        <ul class="exp-ul">
+          <li>Maintaining and optimising a portfolio of 10–20 production ML models covering user behaviour, revenue, and monetization metrics</li>
+          <li>Migrated data pipeline infrastructure from Hive to Apache Livy — improved execution efficiency and reduced ETL latency across millions of user records</li>
+          <li>Engineered complex SQL processing layers to improve data transformation accuracy and downstream model reliability</li>
+          <li>Collaborated with senior researchers to translate product requirements into actionable insights across user behaviour segments</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-entry reveal">
+      <div class="exp-when">Jul 2024 – Jul 2025</div>
+      <div>
+        <div class="exp-role">Data Acquisition & Quality Admin</div>
+        <div class="exp-co">Quacquarelli Symonds (QS) Malaysia</div>
+        <ul class="exp-ul">
+          <li>Managed enrolment and data validation workflows for ~8 EMEA clients, ensuring regulatory compliance and high data integrity across multiple regional datasets</li>
+          <li>Worked closely with cross-functional teams to improve reporting turnaround and team efficiency</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Selected <em>projects</em></h2>
+  </div>
+  <div class="proj-grid">
+    <div class="proj-card reveal delay-1">
+      <div class="proj-card-accent"></div>
+      <div class="proj-ico">✈</div>
+      <div class="proj-name">Flight Fare Prediction</div>
+      <p class="proj-desc">Dynamic pricing and demand forecasting for Malaysia airline routes. LightGBM trained on synthetic behavioural data, CLI mode and interactive Streamlit dashboard.</p>
+      <div class="proj-tags"><span class="proj-tag">LightGBM</span><span class="proj-tag">Streamlit</span><span class="proj-tag">Python</span><span class="proj-tag">Dynamic Pricing</span></div>
+      <a href="https://github.com/nashlim01/flight_fare_prediction_modelling" target="_blank" class="proj-link">View on GitHub →</a>
+    </div>
+    <div class="proj-card reveal delay-2">
+      <div class="proj-card-accent"></div>
+      <div class="proj-ico">🚇</div>
+      <div class="proj-name">MRT Peak Hour Dashboard</div>
+      <p class="proj-desc">Interactive dashboard visualising peak ridership patterns for Malaysia's MRT network — built for exploratory transit load analysis in a clean, accessible format.</p>
+      <div class="proj-tags"><span class="proj-tag">Dashboard</span><span class="proj-tag">Transit Data</span><span class="proj-tag">Python</span><span class="proj-tag">Data Viz</span></div>
+      <a href="https://github.com/nashlim01/mrtpeakhourdashboard" target="_blank" class="proj-link">View on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Get in <em>touch</em></h2>
+  </div>
+  <div class="contact-box reveal">
+    <div class="contact-blob left"></div>
+    <div class="contact-blob right"></div>
+    <h2>Let's build something.</h2>
+    <p>Open to data science, ML engineering, and analytics roles. Happy to chat — no pressure, no agenda, just good conversation.</p>
+    <div class="contact-btns">
+      <a href="mailto:nashlim2001@gmail.com" class="btn-primary">nashlim2001@gmail.com</a>
+      <a href="https://linkedin.com/in/zhihaonashlim" target="_blank" class="btn-ghost">LinkedIn</a>
+      <a href="https://github.com/nashlim01" target="_blank" class="btn-ghost">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Nash Lim · Sarawak, Malaysia</footer>
+</div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

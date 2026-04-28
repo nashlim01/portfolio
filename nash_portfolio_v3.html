@@ -1,0 +1,606 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cream:#F6F0E4;--parchment:#EFE6D0;--sand:#DDD0B8;
+  --amber:#C47C2B;--amber-warm:#E09A4A;--amber-pale:#F5D89A;
+  --bark:#3D2610;--bark-mid:#6B4226;
+  --text:#2A1A0E;--text-mid:#7A5A3A;--text-muted:#A8896A;
+  --border:rgba(100,65,25,0.13);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.7;}
+
+/* BG */
+.bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.bg-canvas svg{width:100%;height:100%;opacity:0.55;}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1);}40%{transform:translate(30px,-20px) scale(1.05);}70%{transform:translate(-15px,25px) scale(0.97);}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1);}35%{transform:translate(-25px,15px) scale(1.03);}65%{transform:translate(20px,-18px) scale(0.98);}}
+@keyframes drift3{0%,100%{transform:translate(0,0);}50%{transform:translate(12px,22px);}}
+.blob1{animation:drift1 22s ease-in-out infinite;}
+.blob2{animation:drift2 28s ease-in-out infinite;}
+.blob3{animation:drift3 18s ease-in-out infinite;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0 3rem;height:60px;background:rgba(246,240,228,0.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--text);text-decoration:none;}
+.nav-links{display:flex;gap:2.2rem;}
+.nav-links a{font-size:12.5px;color:var(--text-mid);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover{color:var(--amber);}
+
+/* SITE */
+.site{position:relative;z-index:1;}
+section{max-width:980px;margin:0 auto;padding:6rem 2.5rem;}
+hr.sep{border:none;border-top:1px solid var(--border);margin:0 2.5rem;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:8rem;padding-bottom:4rem;}
+.hero-eyebrow{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--amber);margin-bottom:2rem;display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(12px);animation:slideUp 0.7s 0.2s ease forwards;}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--amber-warm);}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6.5vw,5.4rem);font-weight:700;line-height:1.12;color:var(--text);margin-bottom:2rem;}
+.hero-line{display:block;overflow:hidden;}
+.hero-line span{display:block;transform:translateY(100%);animation:slideWord 0.85s cubic-bezier(0.16,1,0.3,1) forwards;}
+.hero-line:nth-child(1) span{animation-delay:0.35s;}
+.hero-line:nth-child(2) span{animation-delay:0.5s;}
+.hero-line:nth-child(3) span{animation-delay:0.65s;color:var(--amber);font-style:italic;}
+.hero-sub{font-size:15.5px;color:var(--text-mid);max-width:520px;line-height:1.8;opacity:0;transform:translateY(16px);animation:slideUp 0.8s 0.85s ease forwards;margin-bottom:2rem;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;opacity:0;transform:translateY(16px);animation:slideUp 0.8s 1s ease forwards;margin-bottom:1.5rem;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--bark);color:var(--cream);padding:13px 26px;border-radius:100px;font-size:14px;font-weight:500;text-decoration:none;transition:background 0.2s,transform 0.15s;border:none;cursor:pointer;font-family:'Outfit',sans-serif;}
+.btn-primary:hover{background:var(--amber);transform:translateY(-2px);}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);color:var(--text-mid);padding:13px 26px;border-radius:100px;font-size:14px;text-decoration:none;transition:border-color 0.2s,color 0.2s,transform 0.15s;background:transparent;cursor:pointer;font-family:'Outfit',sans-serif;}
+.btn-ghost:hover{border-color:var(--amber-warm);color:var(--amber);transform:translateY(-2px);}
+
+/* QUOTE WIDGET */
+.quote-trigger-wrap{opacity:0;transform:translateY(14px);animation:slideUp 0.8s 1.15s ease forwards;}
+.quote-trigger-label{font-size:11.5px;color:var(--text-muted);letter-spacing:0.04em;margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+.quote-trigger-label::before{content:'✦';color:var(--amber-warm);font-size:9px;}
+.quote-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(196,124,43,0.1);border:1px solid rgba(196,124,43,0.3);
+  color:var(--bark-mid);padding:10px 20px;border-radius:100px;
+  font-size:13.5px;font-weight:500;cursor:pointer;
+  transition:background 0.2s,transform 0.15s,border-color 0.2s;
+  font-family:'Outfit',sans-serif;
+}
+.quote-btn:hover{background:rgba(196,124,43,0.18);border-color:var(--amber);transform:translateY(-1px);}
+.quote-btn .quote-icon{font-size:14px;transition:transform 0.4s;}
+.quote-btn.loading .quote-icon{animation:spin 1s linear infinite;}
+.quote-box{
+  margin-top:16px;
+  background:rgba(255,252,244,0.92);border:1px solid rgba(196,124,43,0.22);
+  border-radius:16px;padding:1.2rem 1.4rem;
+  max-width:560px;
+  display:none;
+  animation:slideUp 0.5s ease forwards;
+}
+.quote-box.visible{display:block;}
+.quote-person{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.quote-portrait{width:42px;height:42px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid rgba(196,124,43,0.3);display:none;}
+.quote-text{font-family:'Playfair Display',serif;font-size:1rem;font-style:italic;color:var(--text);line-height:1.65;margin-bottom:6px;}
+.quote-attr{font-size:11.5px;color:var(--amber-muted, #A06A22);font-weight:500;letter-spacing:0.04em;}
+.quote-birthday{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.quote-context{font-size:11px;color:var(--text-muted);margin-top:3px;}
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0;background:rgba(212,175,110,0.08);}
+.marquee-track{display:flex;width:max-content;animation:marquee 28s linear infinite;gap:0;}
+.marquee-item{display:flex;align-items:center;gap:0;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:500;white-space:nowrap;padding:0 2rem;}
+.marquee-dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--amber-warm);margin-left:2rem;opacity:0.6;flex-shrink:0;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* SECTION HEADER */
+.section-header{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:3rem;}
+.section-num{font-size:11px;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;padding-right:1.5rem;border-right:1px solid var(--border);margin-right:1.5rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;color:var(--text);}
+.section-title em{font-style:italic;color:var(--amber);}
+
+/* ABOUT */
+.about-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:4rem;align-items:start;}
+.about-body{font-size:15px;color:var(--text-mid);line-height:1.85;}
+.about-body p+p{margin-top:1rem;}
+.about-body strong{color:var(--bark-mid);}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.stat-box{background:rgba(255,250,240,0.9);border:1px solid var(--border);border-radius:16px;padding:1.3rem 1.1rem;position:relative;overflow:hidden;}
+.stat-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--amber-pale),var(--amber-warm));}
+.stat-big{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--amber);line-height:1;}
+.stat-desc{font-size:12px;color:var(--text-muted);margin-top:5px;}
+
+/* SKILLS — ICON GRID */
+.skills-cats{display:flex;flex-direction:column;gap:2rem;}
+.skill-cat-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);font-weight:500;margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+.skill-cat-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.skill-icons-row{display:flex;flex-wrap:wrap;gap:12px;}
+.skill-icon-item{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  background:rgba(255,252,244,0.88);border:1px solid var(--border);
+  border-radius:14px;padding:12px 14px;min-width:70px;
+  transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;
+  cursor:default;
+  opacity:0;
+  transform:translateY(16px) scale(0.98);
+}
+.skill-icon-item:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(100,65,20,0.1);border-color:rgba(196,124,43,0.3);}
+.skill-icon-item i,.skill-icon-item .si{font-size:22px;color:var(--bark-mid);}
+.skill-icon-item span{font-size:10.5px;color:var(--text-muted);text-align:center;white-space:nowrap;}
+.skill-icon-item.visible{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  transition:opacity 0.55s cubic-bezier(0.16,1,0.3,1),transform 0.55s cubic-bezier(0.16,1,0.3,1),box-shadow 0.2s,border-color 0.2s;
+}
+.skill-icon-item.visible i,
+.skill-icon-item.visible .si{transition:transform 0.25s ease,filter 0.25s ease;}
+.skill-icon-item:hover i,
+.skill-icon-item:hover .si{
+  transform:scale(1.08) rotate(-3deg);
+  filter:drop-shadow(0 2px 6px rgba(196,124,43,0.22));
+}
+/* SVG icon badges */
+.si{width:24px;height:24px;display:flex;align-items:center;justify-content:center;}
+.si svg{width:100%;height:100%;}
+.si img{width:100%;height:100%;object-fit:contain;display:block;}
+
+/* EXP */
+.exp-entry{display:grid;grid-template-columns:160px 1fr;gap:2rem;padding:2.2rem 0;border-bottom:1px solid var(--border);}
+.exp-entry:first-child{border-top:1px solid var(--border);}
+.exp-when{font-size:12px;color:var(--text-muted);font-style:italic;padding-top:4px;}
+.exp-role{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--text);}
+.exp-co{font-size:12.5px;color:var(--amber);font-weight:500;margin:4px 0 10px;letter-spacing:0.03em;}
+.exp-ul{list-style:none;}
+.exp-ul li{font-size:13.5px;color:var(--text-mid);line-height:1.72;padding-left:16px;position:relative;margin-bottom:7px;}
+.exp-ul li::before{content:'↳';position:absolute;left:0;color:var(--amber-warm);font-size:11px;top:3px;}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.proj-card{background:rgba(255,252,244,0.9);border:1px solid var(--border);border-radius:20px;padding:1.8rem 1.6rem;transition:transform 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;cursor:default;}
+.proj-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(90,55,15,0.11);}
+.proj-card-accent{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber-pale),var(--amber));transform:scaleX(0);transform-origin:left;transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);}
+.proj-card:hover .proj-card-accent{transform:scaleX(1);}
+.proj-ico{width:40px;height:40px;border-radius:12px;background:rgba(196,124,43,0.12);display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:1.1rem;}
+.proj-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:6px;}
+.proj-desc{font-size:13px;color:var(--text-mid);line-height:1.72;margin-bottom:1rem;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1rem;}
+.proj-tag{font-size:11px;padding:3px 9px;border-radius:100px;background:rgba(196,124,43,0.09);color:var(--bark-mid);border:1px solid rgba(196,124,43,0.18);}
+.proj-link{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:500;color:var(--amber);text-decoration:none;transition:gap 0.2s;}
+.proj-link:hover{gap:9px;}
+
+/* CONTACT */
+.contact-box{background:rgba(255,252,244,0.92);border:1px solid var(--border);border-radius:24px;padding:4rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.contact-blob{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(196,124,43,0.1),transparent 65%);pointer-events:none;}
+.contact-blob.left{top:-80px;left:-60px;}
+.contact-blob.right{bottom:-80px;right:-60px;}
+.contact-box h2{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:700;margin-bottom:0.7rem;}
+.contact-box p{color:var(--text-mid);font-size:15px;margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto;}
+.contact-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+
+footer{text-align:center;padding:2rem;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border);position:relative;z-index:1;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.75s cubic-bezier(0.16,1,0.3,1),transform 0.75s cubic-bezier(0.16,1,0.3,1);}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-left{opacity:0;transform:translateX(-28px);transition:opacity 0.75s cubic-bezier(0.16,1,0.3,1),transform 0.75s cubic-bezier(0.16,1,0.3,1);}
+.reveal-left.visible{opacity:1;transform:none;}
+.reveal-right{opacity:0;transform:translateX(28px);transition:opacity 0.75s cubic-bezier(0.16,1,0.3,1),transform 0.75s cubic-bezier(0.16,1,0.3,1);}
+.reveal-right.visible{opacity:1;transform:none;}
+.delay-1{transition-delay:0.1s;}.delay-2{transition-delay:0.2s;}.delay-3{transition-delay:0.3s;}
+@keyframes slideUp{to{opacity:1;transform:none;}}
+@keyframes slideWord{to{transform:translateY(0);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+</style>
+
+<!-- BG CANVAS -->
+<div class="bg-canvas">
+<svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="blur1"><feGaussianBlur stdDeviation="60"/></filter>
+    <filter id="blur2"><feGaussianBlur stdDeviation="80"/></filter>
+  </defs>
+  <rect width="1440" height="900" fill="#EDE4D0"/>
+  <g class="blob1" filter="url(#blur1)"><ellipse cx="220" cy="180" rx="220" ry="160" fill="#C4882A" opacity="0.18"/></g>
+  <g class="blob2" filter="url(#blur2)"><ellipse cx="1100" cy="320" rx="280" ry="200" fill="#D4A050" opacity="0.14"/></g>
+  <g class="blob3" filter="url(#blur1)"><ellipse cx="650" cy="700" rx="260" ry="180" fill="#A0682A" opacity="0.12"/></g>
+  <g filter="url(#blur2)"><ellipse cx="1300" cy="750" rx="200" ry="160" fill="#E8B870" opacity="0.10"/></g>
+  <g filter="url(#blur1)"><ellipse cx="100" cy="700" rx="170" ry="140" fill="#B87A30" opacity="0.11"/></g>
+  <g opacity="0.04" stroke="#8B5E30" stroke-width="0.5">
+    <line x1="0" y1="150" x2="1440" y2="150"/><line x1="0" y1="400" x2="1440" y2="400"/><line x1="0" y1="650" x2="1440" y2="650"/>
+    <line x1="200" y1="0" x2="200" y2="900"/><line x1="720" y1="0" x2="720" y2="900"/><line x1="1240" y1="0" x2="1240" y2="900"/>
+  </g>
+</svg>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<nav>
+  <a class="nav-logo" href="#hero">Nash Lim</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Work</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="site">
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <p class="hero-eyebrow">Data Scientist &amp; ML Engineer · Sarawak, Malaysia</p>
+  <h1>
+    <span class="hero-line"><span>Turning messy</span></span>
+    <span class="hero-line"><span>data into things</span></span>
+    <span class="hero-line"><span>that actually work.</span></span>
+  </h1>
+  <p class="hero-sub">Python by day, overthinking SQL queries by night. I build ML models and pipelines that run in production — not just in a notebook that you'll never open again.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Let's work together →</a>
+    <a href="#projects" class="btn-ghost">See my work</a>
+  </div>
+
+  <!-- AI QUOTE WIDGET -->
+  <div class="quote-trigger-wrap">
+    <p class="quote-trigger-label">Random quote to inspire your day</p>
+    <button class="quote-btn" id="quoteBtn" onclick="generateQuote()">
+      <span class="quote-icon" id="quoteIcon">✦</span>
+      Generate a quote for today
+    </button>
+    <div class="quote-box" id="quoteBox">
+      <div class="quote-person">
+        <img class="quote-portrait" id="quotePortrait" alt="Person portrait">
+        <div>
+          <p class="quote-attr" id="quoteAttr"></p>
+          <p class="quote-birthday" id="quoteBirthday"></p>
+        </div>
+      </div>
+      <p class="quote-text" id="quoteText"></p>
+      <p class="quote-context" id="quoteContext"></p>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">LightGBM <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Python <span class="marquee-dot"></span></span>
+    <span class="marquee-item">XGBoost <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Feature Engineering <span class="marquee-dot"></span></span>
+    <span class="marquee-item">ETL Pipelines <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Apache Livy <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Streamlit <span class="marquee-dot"></span></span>
+    <span class="marquee-item">SQL <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Audience Segmentation <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Google Cloud <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Retention Modelling <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Data Visualization <span class="marquee-dot"></span></span>
+    <span class="marquee-item">LightGBM <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Python <span class="marquee-dot"></span></span>
+    <span class="marquee-item">XGBoost <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Feature Engineering <span class="marquee-dot"></span></span>
+    <span class="marquee-item">ETL Pipelines <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Apache Livy <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Streamlit <span class="marquee-dot"></span></span>
+    <span class="marquee-item">SQL <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Audience Segmentation <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Google Cloud <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<hr class="sep"/>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">About <em>me</em></h2>
+  </div>
+  <div class="about-layout">
+    <div class="about-body reveal-left">
+      <p>Hi, I'm Nash — a data scientist who genuinely enjoys staring at model outputs at odd hours and thinking "wait, why is this working?" I'm from Sarawak, Malaysia, currently at <strong>Tencent Malaysia</strong> keeping a fleet of production ML models alive and useful.</p>
+      <p>My career so far has involved a lot of telling spreadsheets to behave themselves, convincing pipelines to stop breaking at 2am, and occasionally impressing stakeholders with a chart that somehow told a coherent story. My proudest achievement? <strong>A ~15% lift</strong> in identifying high-value users. My most humbling? The number of times I've run a SQL query and gotten exactly zero rows back.</p>
+      <p>If you're looking for someone who takes the work seriously but not themselves — you've found the right person.</p>
+    </div>
+    <div class="stat-row reveal-right">
+      <div class="stat-box"><div class="stat-big">2+</div><div class="stat-desc">Years in production ML</div></div>
+      <div class="stat-box"><div class="stat-big">~15%</div><div class="stat-desc">Lift in high-value user ID</div></div>
+      <div class="stat-box"><div class="stat-big">~30%</div><div class="stat-desc">Reduced manual processing effort</div></div>
+      <div class="stat-box"><div class="stat-big">20+</div><div class="stat-desc">Production models maintained</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Skills &amp; <em>tools</em></h2>
+  </div>
+  <div class="skills-cats reveal">
+
+    <div>
+      <p class="skill-cat-label">Languages</p>
+      <div class="skill-icons-row">
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python logo"></div>
+          <span>Python</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="SQL database logo"></div>
+          <span>SQL</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript logo"></div>
+          <span>JavaScript</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="skill-cat-label">ML & Modelling</p>
+      <div class="skill-icons-row">
+        <div class="skill-icon-item">
+          <i class="fa-solid fa-cubes-stacked" style="color:#F7931E;font-size:22px"></i>
+          <span>XGBoost</span>
+        </div>
+        <div class="skill-icon-item">
+          <i class="fa-solid fa-seedling" style="color:#5a9a3c;font-size:22px"></i>
+          <span>LightGBM</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/scikitlearn/F7931E" alt="scikit-learn logo"></div>
+          <span>scikit-learn</span>
+        </div>
+        <div class="skill-icon-item">
+          <i class="fa-solid fa-chart-bar" style="color:#C47C2B;font-size:22px"></i>
+          <span>Feature Eng.</span>
+        </div>
+        <div class="skill-icon-item">
+          <i class="fa-solid fa-users" style="color:#8B6A40;font-size:22px"></i>
+          <span>Segmentation</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="skill-cat-label">Data & Infrastructure</p>
+      <div class="skill-icons-row">
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/pandas/150458" alt="Pandas logo"></div>
+          <span>Pandas</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/numpy/013243" alt="NumPy logo"></div>
+          <span>NumPy</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/apacheairflow/017CEE" alt="ETL tooling logo"></div>
+          <span>ETL</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/apache/CA2133" alt="Apache logo"></div>
+          <span>Apache Livy</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/apachehive/FDEE21" alt="Apache Hive logo"></div>
+          <span>Hive</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="skill-cat-label">Platforms & Tools</p>
+      <div class="skill-icons-row">
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/googlecloud/4285F4" alt="Google Cloud Platform logo"></div>
+          <span>GCP</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/streamlit/FF4B4B" alt="Streamlit logo"></div>
+          <span>Streamlit</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path fill="#F34F29" d="M124.74 52.49L75.51 3.25c-1.6-1.61-3.77-2.51-6.03-2.51-2.27 0-4.43.9-6.04 2.51L52.6 14.18l14.87 14.87a7.1 7.1 0 0 1 7.8 1.71 7.1 7.1 0 0 1 1.7 7.87l14.33 14.33a7.09 7.09 0 0 1 7.87 1.7 7.1 7.1 0 0 1 0 10.06 7.1 7.1 0 0 1-10.06 0 7.11 7.11 0 0 1-1.56-7.6L73.3 42.88v33.64a7.1 7.1 0 0 1 1.88 11.38 7.1 7.1 0 0 1-10.06 0 7.1 7.1 0 0 1 0-10.06 7.07 7.07 0 0 1 2.32-1.53V42.34a7.07 7.07 0 0 1-2.32-1.53 7.1 7.1 0 0 1-1.56-7.66L49.2 18.33 3.26 64.27a8.53 8.53 0 0 0 0 12.07l49.22 49.22c1.6 1.6 3.77 2.51 6.03 2.51 2.27 0 4.43-.9 6.04-2.51l49.2-49.2a8.53 8.53 0 0 0-.01-12.87z"/></svg></div>
+          <span>Git</span>
+        </div>
+        <div class="skill-icon-item">
+          <div class="si"><img src="https://cdn.simpleicons.org/googlecolab/F9AB00" alt="Google Colab logo"></div>
+          <span>Colab</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="skill-cat-label">Analytics & Communication</p>
+      <div class="skill-icons-row">
+        <div class="skill-icon-item"><i class="fa-solid fa-chart-line" style="color:#C47C2B;font-size:22px"></i><span>Data Viz</span></div>
+        <div class="skill-icon-item"><i class="fa-solid fa-magnifying-glass-chart" style="color:#8B6A40;font-size:22px"></i><span>Retention</span></div>
+        <div class="skill-icon-item"><i class="fa-solid fa-comments" style="color:#6B4226;font-size:22px"></i><span>Stakeholders</span></div>
+        <div class="skill-icon-item"><i class="fa-solid fa-lightbulb" style="color:#E09A4A;font-size:22px"></i><span>Insights</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Work <em>experience</em></h2>
+  </div>
+  <div>
+    <div class="exp-entry reveal">
+      <div class="exp-when">Jul 2025 – Present</div>
+      <div>
+        <div class="exp-role">Data Analyst Specialist</div>
+        <div class="exp-co">Tencent Malaysia</div>
+        <ul class="exp-ul">
+          <li>Maintaining and optimising a portfolio of 10–20 production ML models covering user behaviour, revenue, and monetization metrics</li>
+          <li>Migrated data pipeline infrastructure from Hive to Apache Livy — improved execution efficiency and reduced ETL latency across millions of user records</li>
+          <li>Engineered complex SQL processing layers to improve data transformation accuracy and downstream model reliability</li>
+          <li>Collaborated with senior researchers to translate product requirements into actionable insights across user behaviour segments</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-entry reveal">
+      <div class="exp-when">Jul 2024 – Jul 2025</div>
+      <div>
+        <div class="exp-role">Data Acquisition & Quality Admin</div>
+        <div class="exp-co">Quacquarelli Symonds (QS) Malaysia</div>
+        <ul class="exp-ul">
+          <li>Managed enrolment and data validation workflows for ~8 EMEA clients, ensuring regulatory compliance and high data integrity across multiple regional datasets</li>
+          <li>Worked closely with cross-functional teams to improve reporting turnaround and team efficiency</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Selected <em>projects</em></h2>
+  </div>
+  <div class="proj-grid">
+    <div class="proj-card reveal delay-1">
+      <div class="proj-card-accent"></div>
+      <div class="proj-ico">✈</div>
+      <div class="proj-name">Flight Fare Prediction</div>
+      <p class="proj-desc">Dynamic pricing and demand forecasting for Malaysia airline routes. LightGBM trained on synthetic behavioural data, CLI mode and interactive Streamlit dashboard.</p>
+      <div class="proj-tags"><span class="proj-tag">LightGBM</span><span class="proj-tag">Streamlit</span><span class="proj-tag">Python</span><span class="proj-tag">Dynamic Pricing</span></div>
+      <a href="https://github.com/nashlim01/flight_fare_prediction_modelling" target="_blank" class="proj-link">View on GitHub →</a>
+    </div>
+    <div class="proj-card reveal delay-2">
+      <div class="proj-card-accent"></div>
+      <div class="proj-ico">🚇</div>
+      <div class="proj-name">MRT Peak Hour Dashboard</div>
+      <p class="proj-desc">Interactive dashboard visualising peak ridership patterns for Malaysia's MRT network — built for exploratory transit load analysis in a clean, accessible format.</p>
+      <div class="proj-tags"><span class="proj-tag">Dashboard</span><span class="proj-tag">Transit Data</span><span class="proj-tag">Python</span><span class="proj-tag">Data Viz</span></div>
+      <a href="https://github.com/nashlim01/mrtpeakhourdashboard" target="_blank" class="proj-link">View on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<hr class="sep"/>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Get in <em>touch</em></h2>
+  </div>
+  <div class="contact-box reveal">
+    <div class="contact-blob left"></div>
+    <div class="contact-blob right"></div>
+    <h2>Let's build something.</h2>
+    <p>Open to data science, ML engineering, and analytics roles. Happy to chat — no pressure, no agenda, just good conversation.</p>
+    <div class="contact-btns">
+      <a href="mailto:nashlim2001@gmail.com" class="btn-primary">nashlim2001@gmail.com</a>
+      <a href="https://linkedin.com/in/zhihaonashlim" target="_blank" class="btn-ghost">LinkedIn</a>
+      <a href="https://github.com/nashlim01" target="_blank" class="btn-ghost">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Nash Lim · Sarawak, Malaysia</footer>
+</div>
+
+<script>
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);} });
+},{threshold:0.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>io.observe(el));
+
+// Staggered reveal for skill cards
+const skillIo = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(!entry.isIntersecting) return;
+    const cards = entry.target.querySelectorAll('.skill-icon-item');
+    cards.forEach((card, idx) => {
+      setTimeout(() => card.classList.add('visible'), idx * 60);
+    });
+    skillIo.unobserve(entry.target);
+  });
+},{threshold:0.2});
+document.querySelectorAll('.skill-icons-row').forEach(row=>skillIo.observe(row));
+
+async function fetchRandomQuote(){
+  try {
+    const res = await fetch('/api/quote');
+    if(res.ok){
+      const data = await res.json();
+      if(data && typeof data.quote === 'string' && data.quote.trim()) return data;
+    }
+  } catch (e) {}
+
+  try {
+    const res = await fetch('https://dummyjson.com/quotes/random');
+    if(res.ok){
+      const data = await res.json();
+      if(data && data.quote){
+        return {
+          quote: data.quote,
+          person: data.author || 'Unknown',
+          domain: 'General inspiration'
+        };
+      }
+    }
+  } catch (e) {}
+  return null;
+}
+
+async function generateQuote(){
+  const btn = document.getElementById('quoteBtn');
+  const icon = document.getElementById('quoteIcon');
+  const box = document.getElementById('quoteBox');
+  const textEl = document.getElementById('quoteText');
+  const attrEl = document.getElementById('quoteAttr');
+  const bdayEl = document.getElementById('quoteBirthday');
+  const ctxEl = document.getElementById('quoteContext');
+  const portraitEl = document.getElementById('quotePortrait');
+
+  btn.classList.add('loading');
+  icon.textContent = '⟳';
+  btn.disabled = true;
+  box.classList.remove('visible');
+
+  try {
+    const payload = await fetchRandomQuote();
+    if(!payload) throw new Error('No quote payload');
+
+    textEl.textContent = `"${payload.quote}"`;
+    attrEl.textContent = payload.person ? `— ${payload.person}` : '— Notable thinker';
+    bdayEl.textContent = payload.domain ? `Domain: ${payload.domain}` : 'Domain: Tech / Astronomy / Philosophy';
+    ctxEl.textContent = 'Click again for another quote.';
+    portraitEl.removeAttribute('src');
+    portraitEl.style.display = 'none';
+
+    box.classList.add('visible');
+    box.style.animation = 'none';
+    box.offsetHeight;
+    box.style.animation = 'fadeIn 0.5s ease forwards';
+  } catch(e) {
+    textEl.textContent = '"A model that works only in notebooks is still in training for reality."';
+    attrEl.textContent = '— Fallback quote';
+    bdayEl.textContent = 'Domain: Tech / Astronomy / Philosophy';
+    ctxEl.textContent = 'Quote service unavailable. If running locally, start `node server.js` then refresh.';
+    portraitEl.removeAttribute('src');
+    portraitEl.style.display = 'none';
+    box.classList.add('visible');
+  }
+
+  btn.classList.remove('loading');
+  icon.textContent = '✦';
+  btn.disabled = false;
+}
+</script>
